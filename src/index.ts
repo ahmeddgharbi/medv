@@ -32,8 +32,6 @@ const verifyAuth = async (req: functions.https.Request): Promise<void> => {
 
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        // For development/testing simplicity, you might skip strict checks if needed, 
-        // but requirements said "Verify Firebase Auth ID token".
         throw new HttpError(401, 'Unauthorized: Check Authorization header');
     }
     const token = authHeader.split('Bearer ')[1];
@@ -91,7 +89,7 @@ export const getSession = functions.https.onRequest(async (req, res) => {
             // If unknown, let's pass it. Logic checks for string type.
         }
 
-        // We fetch "optimistically" if ID is string? 
+        // We fetch if ID is string
         let cachedSession: Session | null = null;
         if (typeof sessionId === 'string') {
             const doc = await db.collection('sessions').doc(sessionId).get();
@@ -128,7 +126,6 @@ export const updateSessionStatus = functions.https.onRequest(async (req, res) =>
 
             // Logic expects us to update and return.
             // We update in memory to return to logic.
-            // But we must also capture this new state to save it (or just save the result of logic).
             const nextSession = { ...currentSession, status: newStatus, updatedAt };
             updatedSession = nextSession;
             return nextSession;
@@ -155,7 +152,6 @@ export const listSessions = functions.https.onRequest(async (req, res) => {
 
         if (status !== undefined) {
             // Logic uses validateSessionStatus, which throws if invalid.
-            // We can use it here to ensure we query safely.
             const validStatus = validateSessionStatus(status);
             query = query.where('status', '==', validStatus);
         }
@@ -170,7 +166,7 @@ export const listSessions = functions.https.onRequest(async (req, res) => {
             .map(d => toSession(d))
             .filter((s): s is Session => s !== null);
 
-        // Pass to logic for final "filtering" (which is redundant but required)
+        // Pass to logic for final filtering
         return listSessionsLogic({ status, region }, () => results);
     });
 });
