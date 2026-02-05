@@ -5,7 +5,7 @@ This project implements a scalable session management backend using **Firebase C
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18 or later)
+- Node.js (v20 or later)
 - npm
 - Firebase CLI (`npm install -g firebase-tools`)
 - A Firebase project created in the [Firebase Console](https://console.firebase.google.com/)
@@ -14,7 +14,6 @@ This project implements a scalable session management backend using **Firebase C
 1.  **Clone the repository**:
     ```bash
     git clone <your-github-repo-url>
-    cd firbasesetup
     ```
 2.  **Install dependencies**:
     ```bash
@@ -109,6 +108,13 @@ I have included this extra endpoint to allow listing sessions with optional filt
 - **Query Params**:
   - `status`: Filter by status (e.g., `completed`)
   - `region`: Filter by region (e.g., `us-east`)
+
+### 4. Unit tests (⭐ Bonus Feature)
+I have added unit tests for all the functions
+- **Run unit tests**:
+    ```bash
+    npm run test
+    ```  
 
 ## 📝 Design Decisions
 
