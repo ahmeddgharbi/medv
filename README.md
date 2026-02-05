@@ -109,7 +109,7 @@ I have included this extra endpoint to allow listing sessions with optional filt
   - `status`: Filter by status (e.g., `completed`)
   - `region`: Filter by region (e.g., `us-east`)
 
-### 4. Unit tests (⭐ Bonus Feature)
+### 5. Unit tests (⭐ Bonus Feature)
 I have added unit tests for all the functions
 - **Run unit tests**:
     ```bash
